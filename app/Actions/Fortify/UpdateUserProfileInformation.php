@@ -4,7 +4,7 @@ namespace App\Actions\Fortify;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+// use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
@@ -23,7 +23,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'required',
                 'string',
                 'max:100',
-                Rule::unique(User::class),
+                // Rule::unique(User::class),
             ],
 
             'email' => [
@@ -31,8 +31,13 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'string',
                 'email',
                 'max:255',
-                Rule::unique('users')->ignore($user->id),
+                // Rule::unique('users')->ignore($user->id),
             ],
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+            ]
         ])->validateWithBag('updateProfileInformation');
 
         if (
@@ -44,6 +49,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $user->forceFill([
                 'login' => $input['login'],
                 'email' => $input['email'],
+                'name' => $input['name'],
             ])->save();
         }
     }
