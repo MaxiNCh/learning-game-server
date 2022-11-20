@@ -10,6 +10,8 @@ services:
         image: sail-8.1/app
         extra_hosts:
             - 'host.docker.internal:host-gateway'
+        ports:
+            - "6001:6001"
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
