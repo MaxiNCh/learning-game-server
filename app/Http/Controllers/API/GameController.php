@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreGameRequest;
 use App\Models\Answer;
 use App\Models\Game;
 use App\Models\Question;
@@ -28,35 +29,37 @@ class GameController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreGameRequest $request)
     {
+        $validated = $request->validated();
+
         $game = Game::create([
-            'title' => $request->input('game.title'),
-            'description' => $request->input('game.description'),
+            'title' => $validated['game']['title'],
+            'description' => $validated['game']['description'],
         ]);
 
-        $questions = $request->input('questions');
+        $questions = $validated['questions'];
 
-        foreach ($questions as $question) {
+        foreach ($questions as $key => $question) {
             if (!empty($question)) {
-                $timeLimit = strstr($question['timeLimit'], ' ', true);
+                $timeLimit = strstr($questions[$key]['timeLimit'], ' ', true); // приходит "n seconds", оставляем только n
 
                 $questionRow = Question::create([
                     'game_id' => $game->id,
-                    'text' => $question['title'],
+                    'text' => $questions[$key]['title'],
                     'media' => 'somemedia',
                     'question_type_id' => 1,
                     'time_limit' => $timeLimit,
                 ]);
 
-                $answers = $question['answers'];
+                $answers = $questions[$key]['answers'];
 
-                foreach ($answers as $answer) {
+                foreach ($answers as $answerKey => $answer) {
                     if (!empty($answer['text'])) {
                         Answer::create([
                             'question_id' => $questionRow->id,
-                            'text' => $answer['text'],
-                            'is_correct' => $answer['isCorrect'],
+                            'text' => $answers[$answerKey]['text'],
+                            'is_correct' => $answers[$answerKey]['isCorrect'],
                             'media' => 'somemedia',
                         ]);
                     }
