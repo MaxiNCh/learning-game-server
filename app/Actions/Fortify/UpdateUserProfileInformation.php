@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
+use App\Models\User;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
@@ -23,7 +24,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'required',
                 'string',
                 'max:100',
-                // Rule::unique(User::class),
+                Rule::unique(User::class)->ignore($user->id),
             ],
 
             'email' => [
@@ -31,7 +32,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'string',
                 'email',
                 'max:255',
-                // Rule::unique('users')->ignore($user->id),
+                Rule::unique('users')->ignore($user->id),
             ],
             'rule' => [
                 'nullable',
