@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\QuestionType;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class QuestionTypeSeeder extends Seeder
 {
@@ -14,11 +15,9 @@ class QuestionTypeSeeder extends Seeder
      */
     public function run()
     {
-        if (!QuestionType::find(1)) {
-            QuestionType::create([
-                'id' => '1',
-                'text' => 'Four variants',
-            ]);
-        }
+        DB::table('question_types')->insertOrIgnore([
+            ['id' => 1, 'text' => 'Quiz'],
+            ['id' => 2, 'text' => 'True or False'],
+        ]);
     }
 }
