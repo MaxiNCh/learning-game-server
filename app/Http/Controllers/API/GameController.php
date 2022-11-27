@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGameRequest;
+use App\Http\Resources\GameResource;
 use App\Models\Answer;
 use App\Models\Game;
 use App\Models\Question;
@@ -22,6 +23,14 @@ class GameController extends Controller
 
         return $games;
     }
+
+    public function gamesByUser(Request $request)
+    {
+        $user = $request->user();
+
+        return GameResource::collection($user->games);
+    }
+
 
     /**
      * Store a newly created resource in storage.
