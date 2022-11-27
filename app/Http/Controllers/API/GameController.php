@@ -41,10 +41,12 @@ class GameController extends Controller
     public function store(StoreGameRequest $request)
     {
         $validated = $request->validated();
+        $user = $request->user();
 
         $game = Game::create([
             'title' => $validated['game']['title'],
             'description' => $validated['game']['description'],
+            'author_id' => $user->id,
         ]);
 
         $questions = $validated['questions'];
