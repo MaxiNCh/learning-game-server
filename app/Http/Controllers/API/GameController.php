@@ -53,14 +53,12 @@ class GameController extends Controller
 
         foreach ($questions as $key => $question) {
             if (!empty($question)) {
-                $timeLimit = strstr($questions[$key]['timeLimit'], ' ', true); // приходит "n seconds", оставляем только n
-
                 $questionRow = Question::create([
                     'game_id' => $game->id,
                     'text' => $questions[$key]['title'],
                     'media' => 'somemedia',
                     'question_type_id' => 1,
-                    'time_limit' => $timeLimit,
+                    'time_limit' => $questions[$key]['timeLimit'],
                 ]);
 
                 $answers = $questions[$key]['answers'];
