@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\GameController;
+use App\Http\Controllers\API\LobbyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/games/user', [GameController::class, 'gamesByUser']);
     Route::apiResource('games', GameController::class);
+
+    Route::post('/lobby/{game}', [LobbyController::class, 'create']);
 });
