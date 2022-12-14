@@ -23,7 +23,7 @@ class BroadcastController extends Controller
             if ($player) {
                 $encodedUser = json_encode([
                     'user_id' => $player->id,
-                    'user_info' => ['playerId' => $player->id, 'isHost' => false, 'nickname' => $player->username]
+                    'user_info' => ['id' => $player->id, 'isHost' => false, 'nickname' => $player->username]
                 ]);
             }
         }
@@ -38,5 +38,14 @@ class BroadcastController extends Controller
             "auth" => "{$key}:{$hash}",
             "channel_data" => $encodedUser,
         ];
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('lobby')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
     }
 }

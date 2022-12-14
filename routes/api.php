@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/lobby/check-pincode', [LobbyController::class, 'checkPincode']);
 Route::post('/lobby/join', [LobbyController::class, 'joinGame']);
 Route::post('/broadcasting/auth', [BroadcastController::class, 'auth']);
+Route::post('/broadcasting/logout', [BroadcastController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
