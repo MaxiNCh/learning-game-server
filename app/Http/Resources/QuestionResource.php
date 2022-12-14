@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GameResource extends JsonResource
+class QuestionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,11 @@ class GameResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'date' => $this->created_at->toDateTimeString(),
-            'author' => $this->author->name,
-            'title' => $this->title,
-            'description' => $this->description,
-            'questions' => QuestionResource::collection($this->questions),
+            'gameId' => $this->game_id,
+            'questionType' => $this->question_type_id,
+            'text' => $this->text,
+            'timeLimit' => $this->time_limit,
+            'answers' => AnswerResource::collection($this->answers),
         ];
     }
 }
