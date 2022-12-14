@@ -22,6 +22,13 @@ Route::post('/lobby/join', [LobbyController::class, 'joinGame']);
 Route::post('/broadcasting/auth', [BroadcastController::class, 'auth']);
 Route::post('/broadcasting/logout', [BroadcastController::class, 'logout']);
 
+Route::get('/check-auth', function (Request $request) {
+    if ($request->user())
+        return response(['isAuth' => true]);
+    else
+        return response(['isAuth' => false]);
+});
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
