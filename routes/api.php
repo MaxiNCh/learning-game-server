@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/broadcasting/auth', [BroadcastController::class, 'auth']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
