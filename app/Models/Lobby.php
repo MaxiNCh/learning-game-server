@@ -4,6 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+
+/**
+ * @property string $id
+ * @property Game $game
+ * @property User $host
+ * @property string $pincode
+ * @property string $status
+ * @property \DateTime $createdAt
+ * @property \DateTime $updatedAt
+ */
 class Lobby extends Model
 {
     /**
