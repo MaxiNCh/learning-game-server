@@ -29,6 +29,8 @@ Route::get('/check-auth', function (Request $request) {
         return response(['isAuth' => false]);
 });
 
+Route::post('/lobby/user-answer/{lobby}/{question}', [LobbyController::class, 'sendUserAnswer']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -39,4 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/lobby/{game}', [LobbyController::class, 'create']);
     Route::post('/lobby/close/{lobby}', [LobbyController::class, 'close']);
+    Route::post('/lobby/next-question/{lobby}/{question}', [LobbyController::class, 'nextQuestion']);
+    Route::post('/lobby/show-question/{lobby}', [LobbyController::class, 'showQuestion']);
+    Route::post('/lobby/show-question-result/{lobby}', [LobbyController::class, 'showQuestionResult']);
 });
