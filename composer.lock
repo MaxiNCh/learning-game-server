@@ -62,16 +62,16 @@
         },
         {
             "name": "beyondcode/laravel-websockets",
-            "version": "1.13.1",
+            "version": "1.13.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beyondcode/laravel-websockets.git",
-                "reference": "f0649b65fb5562d20eff66f61716ef98717e228a"
+                "reference": "50f8a1e77227a2d2302d45b99185d68a1c1c6866"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beyondcode/laravel-websockets/zipball/f0649b65fb5562d20eff66f61716ef98717e228a",
-                "reference": "f0649b65fb5562d20eff66f61716ef98717e228a",
+                "url": "https://api.github.com/repos/beyondcode/laravel-websockets/zipball/50f8a1e77227a2d2302d45b99185d68a1c1c6866",
+                "reference": "50f8a1e77227a2d2302d45b99185d68a1c1c6866",
                 "shasum": ""
             },
             "require": {
@@ -138,9 +138,9 @@
             ],
             "support": {
                 "issues": "https://github.com/beyondcode/laravel-websockets/issues",
-                "source": "https://github.com/beyondcode/laravel-websockets/tree/1.13.1"
+                "source": "https://github.com/beyondcode/laravel-websockets/tree/1.13.2"
             },
-            "time": "2022-03-03T08:41:47+00:00"
+            "time": "2022-10-19T18:15:42+00:00"
         },
         {
             "name": "brick/math",
