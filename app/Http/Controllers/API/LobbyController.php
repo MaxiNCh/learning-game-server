@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\NextQuestion;
+use App\Events\ShowQuestion;
+use App\Events\ShowQuestionResult;
+use App\Events\SendUserAnswer;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Models\Lobby;
 use App\Models\LobbyPlayer;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -34,6 +39,33 @@ class LobbyController extends Controller
         $lobby->save();
 
         return response('Game closed');
+    }
+
+    public function nextQuestion(Lobby $lobby, Question $question)
+    {
+        broadcast(new NextQuestion($lobby, $question));
+    }
+
+    public function showQuestion(Lobby $lobby)
+    {
+        broadcast(new ShowQuestion($lobby));
+    }
+
+    public function showQuestionResult(Lobby $lobby)
+    {
+        broadcast(new ShowQuestionResult($lobby));
+    }
+
+    public function sendUserAnswer(Request $request, Lobby $lobby, Question $question)
+    {
+        $player = Auth::guard('lobby')->user();
+        $answerIndex = $request->input('answerIndex');
+
+        broadcast(new SendUserAnswer($lobby, $question, $player, $answerIndex));
+
+        $answerIsCorrect = (bool) $question->answers[$answerIndex]->is_correct;
+
+        return response(['isCorrect' => $answerIsCorrect]);
     }
 
     public function checkPincode(Request $request)
