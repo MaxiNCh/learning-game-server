@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        JsonResource::withoutWrapping();
+
+        ResetPassword::createUrlUsing(
+            function ($notifiable, $token) {
+                return "http://localhost:8080/auth/reset-password/{$token}?email={$notifiable->getEmailForPasswordReset()}";
+            }
+        );
     }
 }

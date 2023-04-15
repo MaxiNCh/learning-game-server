@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'lobby' => [
+            'driver' => 'session',
+            'provider' => 'players',
+        ]
     ],
 
     /*
@@ -65,10 +70,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'players' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\LobbyPlayer::class,
+        ],
     ],
 
     /*
